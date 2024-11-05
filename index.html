@@ -21,24 +21,51 @@
         font-size: 50px
       }
 
-  .div1 {  
-    padding: 20px;  
-  }  
+        .div1 {  
+            width: 90%; /* Responsive width */  
+            max-width: 400px; /* Maximum width */   
+            background-color: lightblue; /* Color for the div */   
+            font-size: 40px;
+        }  
 
-  @media (max-width: 600px) {  
-    .div1 {   
-      padding: 10px;  
-    }  
-  } 
+        /* Media Query for smaller screens */  
+        @media (max-width: 100%) {  
+            .div1 {  
+                background-color: lightblue; /* Change background color */  
+                font-size: 10px; /* Adjust font size for smaller screens */  
+            }  
+
+            .b1 {
+              font-size: 50px;
+            }
+
+            img {text-align: center;}
+        }
+
+        .b1 {font-size: 100px; font-family: Andalus; position: relative; bottom: 10px;}
+
+        img {border: 1px solid black;}
+
+        a {position: relative; bottom: 30px; font-family: Andalus; font-size: 40px;}
     </style>
       <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-<div class="div1">
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" height="95px" style="border: 1px solid black; width: 100px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="font-size: 100px; font-family: Andalus; position: relative; bottom: 10px;">AZU</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.html" style="position: relative; bottom: 30px; font-size: 40px; font-family: Andalus;">ABOUT US</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="em.html" style="font-size: 40px; font-family: Andalus; position: relative; bottom: 30px;">ORDER</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="contact-and-email.html" style="position: relative; bottom: 30px; font-size: 40px; font-family: Andalus;">CONTACT AND EMAIL</a>
+<div>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  <img src="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" height="95px" width="125px">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b class="b1">AZU</b>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="index.html">ABOUT US</a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="em.html">ORDER</a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="contact-and-email.html">CONTACT AND EMAIL</a>
 </div>
-    <h1 align="center" class="azu"><u>ABOUT US</u></h1>
+    <h1 align="center" class="azu"><u>ABOUT US </u></h1>
 
     <p class="info">
       Hi! We work for AZU, which stands for Ammaar, Zaeem, and Uzair. We are passionate about providing high-quality FREE products and exceptional service. At AZU, we sell a wide range of free items, and we're always excited to bring your ideas to life. Whether you're looking for stylish accessories, or practical solutions, we've got you covered.
