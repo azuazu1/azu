@@ -6,7 +6,13 @@
     </title>
     <link rel="icon" href="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" type="image/x-icon">
     <style type="text/css">
-      .r {font-size: 30px}
+.todo-grid {
+  display: grid;
+  grid-template-columns: 150px 150px 150px 150px;
+  column-gap: 10px;
+  row-gap: 10px;
+  align-items: center;
+}
 
       .info {
         font-size: 20px;
@@ -18,7 +24,8 @@
         font-size: 50px
       }
 
-        .div1 { 
+        .div1 {  
+            width: 100%; /* Responsive width */  
             background-color: lightblue; /* Color for the div */   
             font-size: 40px;
         }  
@@ -35,14 +42,11 @@
               font-family: Andalus;
             }
 
-            u {
-              font-family: Algerian;
-            }
+            img {text-align: center;}
 
-            label {
-              font-family: Arial;
-            }
+            .info {font-family: Arial}
 
+            .azu {font-family: Algerian}
         }
 
         .b1 {font-size: 100px; font-family: Andalus; position: relative; bottom: 10px;}
@@ -50,13 +54,71 @@
         img {border: 1px solid black;}
 
         a {position: relative; bottom: 30px; font-family: Andalus; font-size: 40px;}
+
     </style>
+        
         <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
         <script>    
             (function() {
                 emailjs.init("pk2rIryuYMDNYZutr");
             })();
-    
+
+let order = [];
+
+// Function to render the order list and total price
+function renderorder() {
+    let orderHTML = '';
+    let totalPrice = 0; // Initialize total price
+
+    for (let i = 0; i < order.length; i++) {
+        const { name, dueDate, price } = order[i];
+        totalPrice += parseFloat(price) || 0; // Sum up the prices
+
+        const html = `
+            <div id="item" class="item">${name}</div>
+            <div id="quantity" class="quantity">${dueDate}</div>
+            <div id="price" class="price">${price} TZS</div>
+            <button onclick="
+                order.splice(${i}, 1);
+                renderorder();
+            " class="delete-todo-button">Delete</button>
+        `;
+        orderHTML += html;
+    }
+
+
+    document.querySelector('.js-todo-list').innerHTML = orderHTML;
+}
+
+// Function to add an order item
+function addorder() {
+    const nameInputElement = document.getElementById('message');
+    const name = nameInputElement.value;
+    const dateInputElement = document.getElementById('amount');
+    const dueDate = dateInputElement.value;
+
+    // Calculate price based on the selected item
+    let price = 0;
+    if (name === 'Keychain') {
+        price = 500 * parseInt(dueDate, 10);
+    } else if (name === 'Arabic Calligraphy') {
+        price = 500 * parseInt(dueDate, 10);
+    } else if (name === 'Mini Frames') {
+        price = 1000 * parseInt(dueDate, 10);
+    } else if (name === 'Games') {
+        price = 2000 * parseInt(dueDate, 10);
+    } else if (name === 'Coding') {
+        price = 2500 * parseInt(dueDate, 10);
+    } else if (name === 'Bookmarks') {
+        price = 500 * parseInt(dueDate, 10);
+    } else if (name === 'Ninja Stars') {
+        price = 500 * parseInt(dueDate, 10);
+    }  
+    // Push the order details to the array
+    order.push({ name, dueDate, price });
+    renderorder();
+
+    }  
             function sendEmail() {
             const fromName = document.getElementById('pass').value;
             const email = document.getElementById('e').value;
@@ -100,10 +162,7 @@
   <a href="contact-and-email.html">CONTACT AND EMAIL</a>
 </div>
   <form method="post" onsubmit="sendEmail(); return false;">
-
-    <center>
-
-      <h1 style="font-size: 40px; font-family: Algerian;"><u>ORDER</u></h1>
+      <h1 style="font-size: 40px; font-family: Algerian; color: black;" class="azu"><u style="color: black;">ORDER</u></h1>
 
       <div class="r">
         <label for="pass">your name:</label>
@@ -118,53 +177,41 @@
     </div>
 
     <br>
+  <p class="name">Your order (Click add for every item selected):</p>  
+  <!--<label for="desserts" class="message">Select your item(s)</label>-->
+  <select id="message" name="message" class="message" style="color: black;" required>
+         <option value="Choose your dessert">Choose your product</option>
+      <option value="Keychain">Keychain - 500 TZS</option>
+      <option value="Arabic Calligraphy">Arabic Calligraphy - 500 TZS</option>
+      <option value="Mini Frames">Mini Frames - 1000 TZS</option>
+      <option value="Games">Games - 2000 TZS</option>
+      <option value="Coding">Coding - 2500 TZS</option>
+      <option value="Bookmarks">Bookmarks - 500 TZS</option>
+      <option value="Ninja Stars">Ninja Stars - 500 TZS</option>
+  </select>&nbsp;&nbsp;&nbsp;
 
-    <div class="r">
-      <label for="bd">Product:</label>
-      <select id="bd" name="bd" required>
-  
-        <option value="Keychain">Keychain</option>
-        <option value="Arabic calligraphy">Arabic calligraphy</option>
-        <option value="Microsoft problems">Microsoft problems</option>
-        <option value="Coding">Coding</option>
-        <option value="Mini frames">Mini frames</option>
-        <option value="Games">Games</option>
-        <option value="Bookmarks">Bookmarks</option>  
-      </select>
-    </div>
+  <label for="amount" class="amount" style="color: black;">Qty:</label>
+  <select type="number" id="amount" name="amount" class="amountin" style="color: black;" required>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="button" onclick="addorder();" class="bu">Add</button><br><br>
 
-    <br>
-
-    <div class="r">
-      <label for="b">Amount:</label>
-      <select id="b" name="b">
-  
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-  
-      </select>
-
-      <br>
-      
-      <label for="bm">What you want for coding:</label>
-      <textarea id="bm" name="bm" rows="3"></textarea>
-    </div>
+  <div class="js-todo-list todo-grid" id="grid"></div>
 
   <br>
 
   <div class="p">
     <button type="submit">Submit</button>
   </div>
-
-    </center>
   </form>
 </body>
 </html>
