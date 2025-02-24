@@ -1,222 +1,222 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>
-      ORDER ON AZU
-    </title>
+<head>
+    <title>ORDER ON AZU</title>
     <link rel="icon" href="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" type="image/x-icon">
-    <style type="text/css">
-.todo-grid {
-  display: grid;
-  grid-template-columns: 100px 100px 100px 200px 100px 100px;
-  column-gap: 5px;
-  row-gap: 10px;
-  align-items: center;
-}
+    
+    <style>
+        .todo-grid {
+            display: grid;
+            grid-template-columns: 100px 100px 100px 200px 100px 100px;
+            column-gap: 5px;
+            row-gap: 10px;
+            align-items: center;
+        }
 
-      .info {
-        font-size: 20px;
-        font-family: Arial
-      }
+        .info {
+            font-size: 20px;
+            font-family: Arial;
+        }
 
-      .azu {
-        font-family: Algerian;
-        font-size: 50px
-      }
+        .azu {
+            font-family: Algerian;
+            font-size: 50px;
+        }
 
         .div1 {  
-            width: 100%; /* Responsive width */  
-            background-color: lightblue; /* Color for the div */   
+            width: 100%;  
+            background-color: lightblue;    
             font-size: 40px;
         }  
 
         /* Media Query for smaller screens */  
-@media (max-width: 768px) {
-    .todo-grid {
-        grid-template-columns: repeat(3, 1fr); /* Adjusted for smaller screens */
-    }
-    .div1 {
-        font-size: 20px;
-    }
-
- 
-
-            .b1 {
-              font-size: 50px;
-              font-family: Andalus;
+        @media (max-width: 768px) {
+            .todo-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
-
-            img {text-align: center;}
-
-            .info {font-family: Arial}
-
-            .azu {font-family: Algerian}
+            .div1 {
+                font-size: 20px;
+            }
+            .b1 {
+                font-size: 50px;
+                font-family: Andalus;
+            }
+            img {
+                text-align: center;
+            }
+            .info {
+                font-family: Arial;
+            }
+            .azu {
+                font-family: Algerian;
+            }
         }
 
-        .b1 {font-size: 100px; font-family: Andalus; position: relative; bottom: 10px;}
+        .b1 {
+            font-size: 100px;
+            font-family: Andalus;
+            position: relative;
+            bottom: 10px;
+        }
 
-        img {border: 1px solid black;}
+        img {
+            border: 1px solid black;
+        }
 
-        a {position: relative; bottom: 30px; font-family: Andalus; font-size: 40px;}
-
+        a {
+            position: relative;
+            bottom: 30px;
+            font-family: Andalus;
+            font-size: 40px;
+        }
     </style>
-        
-        <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-        <script>    
-            (function() {
-                emailjs.init("bQy3kWCmEVT7N--Sx");
-            })();
 
-let order = [];
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>    
+        (function() {
+            emailjs.init("bQy3kWCmEVT7N--Sx");
+        })();
 
-// Function to render the order list and total price
-function renderorder() {
-    let orderHTML = '';
+        let order = [];
 
-    for (let i = 0; i < order.length; i++) {
-        const { name, dueDate,} = order[i];
+        function renderOrder() {
+            let orderHTML = '';
 
-        const html = `
-            <div id="item" class="item">${name}</div>
-            <div id="quantity" class="quantity">${dueDate}</div>
-            <br>
-            <p>Description</p>
-            <textarea rows="3" cols="100" id="des"></textarea>
-            <button onclick="
-                order.splice(${i}, 1);
-                renderorder();
-            " class="delete-todo-button">Delete</button>
-        `;
-        orderHTML += html;
-    }
+            for (let i = 0; i < order.length; i++) {
+                const { name, dueDate } = order[i];
 
+                const html = `
+                    <div class="item">${name}</div>
+                    <div class="quantity">${dueDate}</div>
+                    <br>
+                    <p>Description</p>
+                    <textarea rows="3" cols="100" id="des"></textarea>
+                    <button onclick="
+                        order.splice(${i}, 1);
+                        renderOrder();
+                    " class="delete-todo-button">Delete</button>
+                `;
+                orderHTML += html;
+            }
 
-    document.querySelector('.js-todo-list').innerHTML = orderHTML;
-}
+            document.querySelector('.js-todo-list').innerHTML = orderHTML;
+        }
 
-// Function to add an order item
-function addorder() {
-    const nameInputElement = document.getElementById('message');
-    const name = nameInputElement.value;
-    const dateInputElement = document.getElementById('amount');
-    const dueDate = dateInputElement.value;
-    // Push the order details to the array
-    order.push({ name, dueDate,});
-    renderorder();
+        function addOrder() {
+            const nameInputElement = document.getElementById('message');
+            const name = nameInputElement.value;
+            const dateInputElement = document.getElementById('amount');
+            const dueDate = dateInputElement.value;
+            
+            order.push({ name, dueDate });
+            renderOrder();
+        }
 
-    }  
-
-            function sendEmail() {
+        function sendEmail() {
             const fromName = document.getElementById('pass').value;
             const email = document.getElementById('e').value;
             let messageContent = document.querySelector('.todo-grid').textContent;
             let des = document.getElementById('des').value;
             messageContent += des;
             messageContent = messageContent.replaceAll('Delete', '');
-            const message = `My name ${fromName}.\nMy email: ${email}.\nMy order:\n${messageContent}.`
+            const message = `My name: ${fromName}.\nMy email: ${email}.\nMy order:\n${messageContent}.`;
 
             const templateParams = {
-              name: fromName,
-              mail: email,
-              message: messageContent
+                name: fromName,
+                mail: email,
+                message: messageContent
             };
+
             console.log(templateParams);
 
-                if (confirm(`Please confirm your order below\n` + templateParams.message)) {
+            if (confirm(`Please confirm your order below\n` + templateParams.message)) {
+                emailjs.send("service_gh3p8cc", "template_l7caqcm", templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    alert('Order placed successfully!');
+                }, function(error) {
+                    console.error('FAILED...', error);
+                    alert('Failed to place order.');
+                });
 
-    // Send the email using EmailJS
-    emailjs.send("service_gh3p8cc","template_l7caqcm", templateParams);
-        then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
-            alert('Order placed successfully!');
-        }, function(error) {
-            console.error('FAILED...', error);
-            alert('Failed to place order.');
-        });
-
-    // Clear input fields after sending the email
-    document.getElementById('from_name').value = '';
-    document.getElementById('from_email').value = '';
-    document.getElementById('grid').textContent = '';
-    document.getElementById('message').value = '';
-    document.getElementById('amount').value = '';
-    document.querySelector('.js-todo-list').innerHTML = '';
-    order = [];
-
-    orderHTML = '';
-    removeTextareas(); // Clear the address input if present
-    }
+                // Clear input fields after sending the email
+                document.getElementById('pass').value = '';
+                document.getElementById('e').value = '';
+                document.getElementById('message').value = 'Choose your product';
+                document.getElementById('amount').value = '1';
+                document.querySelector('.js-todo-list').innerHTML = '';
+                order = [];
             }
-          </script>
-      <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
+        }
+    </script>
 
-<div class="div1">
-  &nbsp;&nbsp;&nbsp;&nbsp;
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
 
-  <img src="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" height="95px" width="125px">
-  &nbsp;
-  <b class="b1">AZU</b>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="index.html">ABOUT US</a>
-  &nbsp;&nbsp;&nbsp;
-  <a href="em.html">ORDER</a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="contact-and-email.html">CONTACT AND EMAIL</a>
-</div>
-  <form method="post" onsubmit="sendEmail(); return false;">
-      <h1 style="font-size: 40px; font-family: Algerian; color: black;" class="azu"><u style="color: black;">ORDER</u></h1>
-
-      <div class="r">
-        <label for="pass">your name:</label>
-        <input type="text" id="pass" name="pass" required>
-      </div>
-
-      <br>
-
-   <div class="r">
-      <label for="e">email:</label>
-      <input type="email" id="e" name="e"required>
+    <div class="div1">
+        <img src="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" height="95px" width="125px">
+        <b class="b1">AZU</b>&nbsp;&nbsp;&nbsp;
+        <a href="index.html">ABOUT US</a>&nbsp;&nbsp;&nbsp;
+        <a href="em.html">ORDER</a>&nbsp;&nbsp;&nbsp;
+        <a href="contact-and-email.html">CONTACT AND EMAIL</a>
     </div>
 
-    <br>
-  <p class="name">Your order (Click add for every item selected):</p>  
-  <!--<label for="desserts" class="message">Select your item(s)</label>-->
-  <select id="message" name="message" class="message" style="color: black;" required>
-         <option value="Choose your dessert">Choose your product</option>
-      <option value="Keychain">Keychain</option>
-      <option value="Arabic Calligraphy">Arabic Calligraphy</option>
-      <option value="Mini Frames">Mini Frames</option>
-      <option value="Games">Games</option>
-      <option value="Coding">Coding</option>
-      <option value="Bookmarks">Bookmarks</option>
-      <option value="Ninja Stars">Ninja Stars</option>
-  </select>&nbsp;&nbsp;&nbsp;
+    <form method="post" onsubmit="sendEmail(); return false;">
+        <h1 class="azu" style="font-size: 40px; font-family: Algerian; color: black;">
+            <u style="color: black;">ORDER</u>
+        </h1>
 
-  <label for="amount" class="amount" style="color: black;">Qty:</label>
-  <select type="number" id="amount" name="amount" class="amountin" style="color: black;" required>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-  </select>&nbsp;&nbsp;&nbsp;&nbsp;
-  <button type="button" onclick="addorder();" class="bu">Add</button><br><br>
+        <div class="r">
+            <label for="pass">Your Name:</label>
+            <input type="text" id="pass" name="pass" required>
+        </div>
 
-  <div class="js-todo-list todo-grid" id="grid"></div><br><hr style="height: 5px; background-color: black; border-radius: 10px;">  
+        <br>
 
-  <br>
+        <div class="r">
+            <label for="e">Email:</label>
+            <input type="email" id="e" name="e" required>
+        </div>
 
-  <div class="p">
-    <button type="submit">Submit</button>
-  </div>
-  </form>
+        <br>
+
+        <p class="name">Your order (Click "Add" for every item selected):</p>  
+        
+        <select id="message" name="message" class="message" required>
+            <option value="Choose your dessert">Choose your product</option>
+            <option value="Keychain">Keychain</option>
+            <option value="Arabic Calligraphy">Arabic Calligraphy</option>
+            <option value="Mini Frames">Mini Frames</option>
+            <option value="Games">Games</option>
+            <option value="Coding">Coding</option>
+            <option value="Bookmarks">Bookmarks</option>
+            <option value="Ninja Stars">Ninja Stars</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="amount" class="amount" style="color: black;">Qty:</label>
+        <select id="amount" name="amount" class="amountin" required>
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+            <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;
+
+        <button type="button" onclick="addOrder();" class="bu">Add</button>
+
+        <br><br>
+
+        <div class="js-todo-list todo-grid" id="grid"></div>
+
+        <br><hr style="height: 5px; background-color: black; border-radius: 10px;">  
+        <br>
+
+        <div class="p">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
 </body>
 </html>
