@@ -8,8 +8,8 @@
     <style type="text/css">
 .todo-grid {
   display: grid;
-  grid-template-columns: 150px 150px 150px 150px;
-  column-gap: 10px;
+  grid-template-columns: 100px 100px 100px 200px 100px 100px;
+  column-gap: 5px;
   row-gap: 10px;
   align-items: center;
 }
@@ -31,11 +31,15 @@
         }  
 
         /* Media Query for smaller screens */  
-        @media (max-width: 100%) {  
-            .div1 {  
-                background-color: lightblue; /* Change background color */  
-                font-size: 10px; /* Adjust font size for smaller screens */  
-            }  
+@media (max-width: 768px) {
+    .todo-grid {
+        grid-template-columns: repeat(3, 1fr); /* Adjusted for smaller screens */
+    }
+    .div1 {
+        font-size: 20px;
+    }
+
+ 
 
             .b1 {
               font-size: 50px;
@@ -60,7 +64,7 @@
         <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
         <script>    
             (function() {
-                emailjs.init("pk2rIryuYMDNYZutr");
+                emailjs.init("bQy3kWCmEVT7N--Sx");
             })();
 
 let order = [];
@@ -68,16 +72,16 @@ let order = [];
 // Function to render the order list and total price
 function renderorder() {
     let orderHTML = '';
-    let totalPrice = 0; // Initialize total price
 
     for (let i = 0; i < order.length; i++) {
-        const { name, dueDate, price } = order[i];
-        totalPrice += parseFloat(price) || 0; // Sum up the prices
+        const { name, dueDate,} = order[i];
 
         const html = `
             <div id="item" class="item">${name}</div>
             <div id="quantity" class="quantity">${dueDate}</div>
-            <div id="price" class="price">${price} TZS</div>
+            <br>
+            <p>Description</p>
+            <textarea rows="3" cols="100" id="des"></textarea>
             <button onclick="
                 order.splice(${i}, 1);
                 renderorder();
@@ -96,51 +100,52 @@ function addorder() {
     const name = nameInputElement.value;
     const dateInputElement = document.getElementById('amount');
     const dueDate = dateInputElement.value;
-
-    // Calculate price based on the selected item
-    let price = 0;
-    if (name === 'Keychain') {
-        price = 500 * parseInt(dueDate, 10);
-    } else if (name === 'Arabic Calligraphy') {
-        price = 500 * parseInt(dueDate, 10);
-    } else if (name === 'Mini Frames') {
-        price = 1000 * parseInt(dueDate, 10);
-    } else if (name === 'Games') {
-        price = 2000 * parseInt(dueDate, 10);
-    } else if (name === 'Coding') {
-        price = 2500 * parseInt(dueDate, 10);
-    } else if (name === 'Bookmarks') {
-        price = 500 * parseInt(dueDate, 10);
-    } else if (name === 'Ninja Stars') {
-        price = 500 * parseInt(dueDate, 10);
-    }  
     // Push the order details to the array
-    order.push({ name, dueDate, price });
+    order.push({ name, dueDate,});
     renderorder();
 
     }  
+
             function sendEmail() {
             const fromName = document.getElementById('pass').value;
             const email = document.getElementById('e').value;
-            const product = document.getElementById('bd').value;
-            const amountValue = document.getElementById('b').value;
-            const codingValue = document.getElementById('bm').value;
+            let messageContent = document.querySelector('.todo-grid').textContent;
+            let des = document.getElementById('des').value;
+            messageContent += des;
+            messageContent = messageContent.replaceAll('Delete', '');
+            const message = `My name ${fromName}.\nMy email: ${email}.\nMy order:\n${messageContent}.`
 
             const templateParams = {
               name: fromName,
               mail: email,
-              pro: product,
-              amount: amountValue,
-              coding: codingValue
+              message: messageContent
             };
-            emailjs.send("service_3kxlepw","template_y66qt7e", templateParams)
-                    .then(function(response) {
-                        console.log('SUCCESS!', response.status, response.text);
-                        alert('Submitted successfully!');
-                    }, function(error) {
-                        console.error('FAILED...', error);
-                        alert('Failed to submit, pls try again');
-                    });
+            console.log(templateParams);
+
+                if (confirm(`Please confirm your order below\n` + templateParams.message)) {
+
+    // Send the email using EmailJS
+    emailjs.send("service_gh3p8cc","template_l7caqcm", templateParams);
+        then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            alert('Order placed successfully!');
+        }, function(error) {
+            console.error('FAILED...', error);
+            alert('Failed to place order.');
+        });
+
+    // Clear input fields after sending the email
+    document.getElementById('from_name').value = '';
+    document.getElementById('from_email').value = '';
+    document.getElementById('grid').textContent = '';
+    document.getElementById('message').value = '';
+    document.getElementById('amount').value = '';
+    document.querySelector('.js-todo-list').innerHTML = '';
+    order = [];
+
+    orderHTML = '';
+    removeTextareas(); // Clear the address input if present
+    }
             }
           </script>
       <meta charset="utf-8">
@@ -181,13 +186,13 @@ function addorder() {
   <!--<label for="desserts" class="message">Select your item(s)</label>-->
   <select id="message" name="message" class="message" style="color: black;" required>
          <option value="Choose your dessert">Choose your product</option>
-      <option value="Keychain">Keychain - 500 TZS</option>
-      <option value="Arabic Calligraphy">Arabic Calligraphy - 500 TZS</option>
-      <option value="Mini Frames">Mini Frames - 1000 TZS</option>
-      <option value="Games">Games - 2000 TZS</option>
-      <option value="Coding">Coding - 2500 TZS</option>
-      <option value="Bookmarks">Bookmarks - 500 TZS</option>
-      <option value="Ninja Stars">Ninja Stars - 500 TZS</option>
+      <option value="Keychain">Keychain</option>
+      <option value="Arabic Calligraphy">Arabic Calligraphy</option>
+      <option value="Mini Frames">Mini Frames</option>
+      <option value="Games">Games</option>
+      <option value="Coding">Coding</option>
+      <option value="Bookmarks">Bookmarks</option>
+      <option value="Ninja Stars">Ninja Stars</option>
   </select>&nbsp;&nbsp;&nbsp;
 
   <label for="amount" class="amount" style="color: black;">Qty:</label>
@@ -205,7 +210,7 @@ function addorder() {
   </select>&nbsp;&nbsp;&nbsp;&nbsp;
   <button type="button" onclick="addorder();" class="bu">Add</button><br><br>
 
-  <div class="js-todo-list todo-grid" id="grid"></div>
+  <div class="js-todo-list todo-grid" id="grid"></div><br><hr style="height: 5px; background-color: black; border-radius: 10px;">  
 
   <br>
 
