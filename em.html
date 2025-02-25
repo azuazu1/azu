@@ -13,6 +13,25 @@
             align-items: center;
         }
 
+        form {
+            color: darkblue;
+        }
+
+        button {
+            background-color: darkblue;
+            color: white;
+            border: black solid 1px;
+            border-radius: 5px;
+        }
+
+        select {
+            color: darkblue;
+        }
+
+        .message {
+            color: darkblue;
+        }
+
         .info {
             font-size: 20px;
             font-family: Arial;
@@ -28,6 +47,14 @@
             background-color: lightblue;    
             font-size: 40px;
         }  
+
+        .things {
+            color: darkblue;
+        }
+
+        input {
+            color: darkblue;
+        }
 
         /* Media Query for smaller screens */  
         @media (max-width: 768px) {
@@ -165,10 +192,11 @@
 
     <form onsubmit="sendEmail(); return false;">
 
-        <h1 class="azu" style="font-size: 40px; font-family: Algerian; color: black;">
-            <u style="color: black;">ORDER</u>
+        <h1 class="azu" style="font-size: 40px; font-family: Algerian; color: darkblue;">
+            <u style="color: darkblue;">ORDER</u>
         </h1>
 
+<div class="things">
         <div class="r">
             <label for="pass">Your Name:</label>
             <input type="text" id="pass" name="pass" required>
@@ -196,7 +224,7 @@
             <option value="Ninja Stars">Ninja Stars</option>
         </select>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <label for="amount" class="amount" style="color: black;">Qty:</label>
+        <label for="amount" class="amount">Qty:</label>
         <select id="amount" name="amount" class="amountin" required>
             <option value="1">1</option><option value="2">2</option><option value="3">3</option>
             <option value="4">4</option><option value="5">5</option><option value="6">6</option>
@@ -210,6 +238,7 @@
         <br><br>
 
         <div class="js-todo-list todo-grid" id="grid"></div>
+</div>
 
         <br><hr style="height: 5px; background-color: black; border-radius: 10px;">  
         <br>
