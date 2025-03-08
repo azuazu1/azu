@@ -12,51 +12,23 @@
             row-gap: 10px;
             align-items: center;
         }
-
         form {
             color: darkblue;
         }
-
         button {
             background-color: darkblue;
             color: white;
             border: black solid 1px;
             border-radius: 5px;
         }
-
-        select {
+        select, input, .message {
             color: darkblue;
         }
-
-        .message {
-            color: darkblue;
-        }
-
-        .info {
-            font-size: 20px;
-            font-family: Arial;
-        }
-
-        .azu {
-            font-family: Algerian;
-            font-size: 50px;
-        }
-
         .div1 {  
             width: 100%;  
             background-color: lightblue;    
             font-size: 40px;
         }  
-
-        .things {
-            color: darkblue;
-        }
-
-        input {
-            color: darkblue;
-        }
-
-        /* Media Query for smaller screens */  
         @media (max-width: 768px) {
             .todo-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -64,37 +36,13 @@
             .div1 {
                 font-size: 20px;
             }
-            .b1 {
-                font-size: 50px;
-                font-family: Andalus;
-            }
-            img {
-                text-align: center;
-            }
-            .info {
-                font-family: Arial;
-            }
-            .azu {
-                font-family: Algerian;
-            }
         }
-
         .b1 {
             font-size: 100px;
             font-family: Andalus;
-            position: relative;
-            bottom: 10px;
         }
-
         img {
             border: 1px solid black;
-        }
-
-        a {
-            position: relative;
-            bottom: 30px;
-            font-family: Andalus;
-            font-size: 40px;
         }
     </style>
 
@@ -108,65 +56,58 @@
 
         function renderOrder() {
             let orderHTML = '';
-
             for (let i = 0; i < order.length; i++) {
-                const { name, dueDate } = order[i];
-
-                const html = `
+                const { name, quantity } = order[i];
+                orderHTML += `
                     <div class="item">${name}</div>
-                    <div class="quantity">${dueDate}</div>
+                    <div class="quantity">${quantity}</div>
                     <br>
                     <p>Description</p>
-                    <textarea rows="3" cols="100" id="des"></textarea>
-                    <button onclick="
-                        order.splice(${i}, 1);
-                        renderOrder();
-                    " class="delete-todo-button">Delete</button>
+                    <textarea rows="3" cols="50" class="desc" required></textarea>
+                    <button onclick="order.splice(${i}, 1); renderOrder();" class="delete-todo-button">Delete</button>
                 `;
-                orderHTML += html;
             }
-
             document.querySelector('.js-todo-list').innerHTML = orderHTML;
         }
 
         function addOrder() {
-            const nameInputElement = document.getElementById('message');
-            const name = nameInputElement.value;
-            const dateInputElement = document.getElementById('amount');
-            const dueDate = dateInputElement.value;
-            
-            order.push({ name, dueDate });
+            const name = document.getElementById('message').value;
+            const quantity = document.getElementById('amount').value;
+            order.push({ name, quantity });
             renderOrder();
         }
 
         function sendEmail() {
             const fromName = document.getElementById('pass').value;
             const email = document.getElementById('e').value;
-            let messageContent = document.querySelector('.todo-grid').textContent;
-            let des = document.getElementById('des').value;
-            messageContent += des;
-            messageContent = messageContent.replaceAll('Delete', '');
-            const message = `My name: ${fromName}.\nMy email: ${email}.\nMy order:\n${messageContent}.`;
+            let messageContent = "";
+            
+            let items = document.querySelectorAll('.item');
+            let quantities = document.querySelectorAll('.quantity');
+            let descriptions = document.querySelectorAll('.desc');
 
-            const templateParams = {
-                name: fromName,
-                mail: email,
-                message: messageContent
-            };
+            for (let i = 0; i < items.length; i++) {
+                let name = items[i].textContent;
+                let qty = quantities[i].textContent;
+                let desc = descriptions[i].value;
+                messageContent += `Item: ${name}, Quantity: ${qty}, Description: ${desc}\n`;
+            }
 
-            console.log(templateParams);
+            const message = `My name: ${fromName}.
+My email: ${email}.
+My order:
+${messageContent}`;
 
-            if (confirm(`Please confirm your order below\n` + templateParams.message)) {
+            const templateParams = { name: fromName, mail: email, message: messageContent };
+
+            if (confirm(`Please confirm your order:\n${message}`)) {
                 emailjs.send("service_gh3p8cc", "template_l7caqcm", templateParams)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
+                .then(() => {
                     alert('Order placed successfully!');
-                }, function(error) {
-                    console.error('FAILED...', error);
+                }, () => {
                     alert('Failed to place order.');
                 });
 
-                // Clear input fields after sending the email
                 document.getElementById('pass').value = '';
                 document.getElementById('e').value = '';
                 document.getElementById('message').value = 'Choose your product';
@@ -176,12 +117,8 @@
             }
         }
     </script>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-
     <div class="div1">
         <img src="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" height="95px" width="125px">
         <b class="b1">AZU</b>&nbsp;&nbsp;&nbsp;
@@ -191,30 +128,17 @@
     </div>
 
     <form onsubmit="sendEmail(); return false;">
+        <h1 style="font-size: 40px; color: darkblue;">ORDER</h1>
 
-        <h1 class="azu" style="font-size: 40px; font-family: Algerian; color: darkblue;">
-            <u style="color: darkblue;">ORDER</u>
-        </h1>
+        <label for="pass">Your Name:</label>
+        <input type="text" id="pass" name="pass" required><br><br>
 
-<div class="things">
-        <div class="r">
-            <label for="pass">Your Name:</label>
-            <input type="text" id="pass" name="pass" required>
-        </div>
+        <label for="e">Email:</label>
+        <input type="email" id="e" name="e" required><br><br>
 
-        <br>
-
-        <div class="r">
-            <label for="e">Email:</label>
-            <input type="email" id="e" name="e" required>
-        </div>
-
-        <br>
-
-        <p class="name">Your order (Click "Add" for every item selected):</p>  
-        
-        <select id="message" name="message" class="message" required>
-            <option value="Choose your dessert">Choose your product</option>
+        <p>Your order (Click "Add" for every item selected):</p>
+        <select id="message" required>
+            <option value="Choose your product">Choose your product</option>
             <option value="Keychain">Keychain</option>
             <option value="Arabic Calligraphy">Arabic Calligraphy</option>
             <option value="Mini Frames">Mini Frames</option>
@@ -223,30 +147,20 @@
             <option value="Bookmarks">Bookmarks</option>
             <option value="Ninja Stars">Ninja Stars</option>
         </select>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <label for="amount" class="amount">Qty:</label>
-        <select id="amount" name="amount" class="amountin" required>
+
+        <label for="amount">Qty:</label>
+        <select id="amount" required>
             <option value="1">1</option><option value="2">2</option><option value="3">3</option>
             <option value="4">4</option><option value="5">5</option><option value="6">6</option>
             <option value="7">7</option><option value="8">8</option><option value="9">9</option>
             <option value="10">10</option>
         </select>
-        &nbsp;&nbsp;&nbsp;
 
-        <button type="button" onclick="addOrder();" class="bu">Add</button>
-
+        <button type="button" onclick="addOrder();">Add</button>
         <br><br>
-
-        <div class="js-todo-list todo-grid" id="grid"></div>
-</div>
-
-        <br><hr style="height: 5px; background-color: black; border-radius: 10px;">  
-        <br>
-
-        <div class="p">
-            <button type="submit">Submit</button>
-        </div>
+        <div class="js-todo-list todo-grid"></div>
+        <br><hr>
+        <button type="submit">Submit</button>
     </form>
-
 </body>
 </html>
