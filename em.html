@@ -4,46 +4,54 @@
     <title>ORDER ON AZU</title>
     <link rel="icon" href="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" type="image/x-icon">
     
-    <style>
-        .todo-grid {
-            display: grid;
-            grid-template-columns: 100px 100px 100px 200px 100px 100px;
-            column-gap: 5px;
-            row-gap: 10px;
-            align-items: center;
-        }
-        form {
-            color: darkblue;
-        }
-        button {
-            background-color: darkblue;
-            color: white;
-            border: black solid 1px;
-            border-radius: 5px;
-        }
-        select, input, .message {
-            color: darkblue;
-        }
+        <style type="text/css">
+      div {
+        background-color: lightblue;
+      }
+
+      .info {
+        font-size: 20px;
+        font-family: Arial;
+        color: darkblue;
+      }
+
+      .azu {
+        font-family: Algerian;
+        font-size: 50px;
+        color: darkblue;
+      }
+
         .div1 {  
-            width: 100%;  
-            background-color: lightblue;    
-            font-size: 40px;
+            width: 100%; /* Responsive width */  
+            max-width: 100%; /* Maximum width */   
+            background-color: lightblue; /* Color for the div */   
+            font-size: 20px;
         }  
-        @media (max-width: 768px) {
-            .todo-grid {
-                grid-template-columns: repeat(3, 1fr);
+
+        /* Media Query for smaller screens */  
+        @media (max-width: 100%) {  
+            .div1 {  
+                background-color: lightblue; /* Change background color */  
+                font-size: 10px; /* Adjust font size for smaller screens */  
+            }  
+
+            .b1 {
+              font-size: 50px;
+              font-family: Andalus;
             }
-            .div1 {
-                font-size: 20px;
-            }
+
+            img {text-align: center;}
+
+            .info {font-family: Arial}
+
+            .azu {font-family: Algerian}
         }
-        .b1 {
-            font-size: 100px;
-            font-family: Andalus;
-        }
-        img {
-            border: 1px solid black;
-        }
+
+        .b1 {font-size: 100px; font-family: Andalus; position: relative; bottom: 10px;}
+
+        img {border: 1px solid black;}
+
+        a {position: relative; bottom: 30px; font-family: Andalus; font-size: 40px;}
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
@@ -120,12 +128,20 @@ ${messageContent}`;
 </head>
 <body>
     <div class="div1">
-        <img src="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" height="95px" width="125px">
-        <b class="b1">AZU</b>&nbsp;&nbsp;&nbsp;
-        <a href="index.html">ABOUT US</a>&nbsp;&nbsp;&nbsp;
-        <a href="em.html">ORDER</a>&nbsp;&nbsp;&nbsp;
-        <a href="contact-and-email.html">CONTACT AND EMAIL</a>
-    </div>
+  &nbsp;&nbsp;
+
+  <img src="https://uzairharunani.github.io/uz10/azu-high-resolution-logo (1).png" height="95px" width="125px">
+  &nbsp;&nbsp;
+  <b class="b1">AZU</b>
+  &nbsp;&nbsp;
+  <a href="index.html">ABOUT US</a>
+  &nbsp;&nbsp;
+  <a href="em.html">ORDER</a>
+  &nbsp;&nbsp;
+  <a href="contact-and-email.html">CONTACT AND EMAIL</a>
+    &nbsp;&nbsp;
+  <a href="ramadhan.html">RAMADHAN SPECIAL</a>
+</div>
 
     <form onsubmit="sendEmail(); return false;">
         <h1 style="font-size: 40px; color: darkblue;">ORDER</h1>
