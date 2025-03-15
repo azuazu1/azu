@@ -67,11 +67,10 @@
             for (let i = 0; i < order.length; i++) {
                 const { name, quantity } = order[i];
                 orderHTML += `
-                    <div class="item">${name}</div>
-                    <div class="quantity">${quantity}</div>
-                    <br>
+                    <div class="item">${name}</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="quantity">${quantity}</div>&nbsp;&nbsp;&nbsp;&nbsp;
                     <p>Description</p>
-                    <textarea rows="3" cols="50" class="desc" required></textarea>
+                    <textarea rows="3" cols="50" class="desc" required></textarea>&nbsp;&nbsp;&nbsp;&nbsp;
                     <button onclick="order.splice(${i}, 1); renderOrder();" class="delete-todo-button">Delete</button>
                 `;
             }
